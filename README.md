@@ -66,7 +66,7 @@ PDFs and/or images will be stored in folders named after the base PDF name, with
 
 ## Notes
 
-The script processes each URL in urls.txt and generates a PDF for each chapter.
+The script processes each URL in urls.txt and generates a PDF for each batch of images fetched.
 
 Ensure the website is accessible and the CSS selector correctly targets the image elements.
 
