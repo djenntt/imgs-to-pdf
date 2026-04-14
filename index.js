@@ -496,7 +496,17 @@ Examples:
             if (!downloadOk) return false;
         }
 
-        const outputName = `${baseName}_${formattedSeq}`;
+        // Extract chapter number from URL slug (e.g. "chapter-11.5" -> "011.5", "chapter-3" -> "003")
+        const chapterMatch = url.match(/chapter[- ](\d+(?:\.\d+)?)\/?$/i);
+        let chapterNum;
+        if (chapterMatch) {
+            const parts = chapterMatch[1].split('.');
+            const padded = parts[0].padStart(3, '0');
+            chapterNum = parts.length > 1 ? `${padded}.${parts[1]}` : padded;
+        } else {
+            chapterNum = formatSequenceNumber(index + 1, urls.length);
+        }
+        const outputName = `${baseName}_${chapterNum}`;
         const outputFolderPath = path.join(isXtc ? './xtc' : './pdfs', baseName);
         if (!fs.existsSync(outputFolderPath)) {
             fs.mkdirSync(outputFolderPath, { recursive: true });
